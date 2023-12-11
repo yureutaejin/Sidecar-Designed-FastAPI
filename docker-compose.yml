@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  fastapi:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    ports:
+      - "22222:22222"
+    volumes:
+      # set volume first with bash
+      - backend_logs:/app/project/logs/gunicorn
+    restart: always
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.2.1
+    user: root
+    network_mode: "host"
+    # ports:
+    #   - "5044:5044"
+    #   - "5000:5000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      # set docker volume first with bash
+      - backend_logs:/var/log/bakend
+      - ${PWD}/filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro
+    depends_on:
+      - fastapi
+    restart: always
+
+volumes:
+  backend_logs:
+    # create docker volume first
+    # docker volume create backend_logs
+    external: true

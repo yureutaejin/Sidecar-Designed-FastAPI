@@ -1,0 +1,13 @@
+{
+    "api-key-list": [
+        {
+            "domain-char": "test",
+            "origin": "https://test.com",
+            "api-key": "UhQ8IsxSasdfsadfad",
+            "generate-date": "2023-10-12 06:16:50",
+            "who-generate": "jinyuntae",
+            "developer-password": "test123",
+            "tier": "master"
+        }
+    ]
+}
