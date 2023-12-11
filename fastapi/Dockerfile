@@ -12,7 +12,7 @@ RUN pip install -r requirements.txt
 
 RUN chmod +x entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 22222
 
 ENTRYPOINT ["sh", "-c", "/app/project/entrypoint.sh & tail -f /dev/null"]
 

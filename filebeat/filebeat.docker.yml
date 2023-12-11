@@ -1,0 +1,26 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+filebeat.inputs:
+- type: 
+  enabled: true
+  paths:
+    - /var/log/backend/*.log
+  encoding: utf-8
+  fields:
+    log_type: access
+
+
+output.logstash:
+  hosts: ["logstash ip and port"]
+  index: "filebeat-backend-%{+yyyy.MM}"
+
+setup.template:
+  name: "filebeat-backend"
+  pattern: "filebeat-backend-*"
+  enabled: false
+
+setup.ilm.enabled: false
+setup.template.overwrite: true

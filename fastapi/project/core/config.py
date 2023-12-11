@@ -5,11 +5,13 @@ import os
 import json
 import urllib.parse
 
-try:
-    DB = (json.load(open("./core/DB_info.json", 'r')))['DB']
-except:
-    DB = (json.load(open("/app/project/core/DB_info.json", 'r')))['DB']
+# try:
+#     DB = (json.load(open("./core/DB_info.json", 'r')))['DB']
+# except:
+#     DB = (json.load(open("/app/project/core/DB_info.json", 'r')))['DB']
+directory = os.path.join(os.getcwd(), './config/DB_info.json')
 
+DB = (json.load(open(directory, 'r')))['DB']
 class Settings:
     SQLALCHEMY_DATABASE_URL = f"postgresql://{DB['user']}:{urllib.parse.quote(DB['password'], safe='')}@{DB['host']}:{DB['port']}/{DB['database']}"
 
